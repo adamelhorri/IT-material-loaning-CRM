@@ -1,0 +1,50 @@
+<nav class="menu-container">
+    <!-- burger menu -->
+    <input type="checkbox" aria-label="Toggle menu" />
+    <span></span>
+    <span></span>
+    <span></span>
+  
+    <!-- logo -->
+    <a routerLink="/disponibilites" class="menu-logo">
+      <img style=" zoom:90%;padding: 0 ;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/TE_Connectivity_logo.svg/1200px-TE_Connectivity_logo.svg.png?20180721111147" alt=""/>
+    </a>
+  
+    <!-- menu items -->
+    <div class="menu">
+      <ul  style="padding-top:18px ;">
+        <li>
+          <a routerLink="/attributions">
+              ITEA
+          </a>
+        </li>
+        <li>
+          <a routerLink="/purchases">
+             Purchases
+          </a>
+        </li>
+        
+        <li>
+          <a routerLink="/employes">
+              Employees
+          </a>
+        </li>
+
+        
+        
+      </ul>
+      <ul style="padding-top:18px ;">
+      <li>
+        <a>
+          <button class="icoButton" style=" background: url('assets/refresh.png');background-size: 100%;background-position:bottom; background-repeat: no-repeat; padding: 0%;" (click)="refresh()" ></button>
+        </a>
+      </li>
+      <li style="padding-left: 100px; ">
+        <a (click)="logout()" style="vertical-align: bottom; cursor: pointer;">
+          Log Out
+        </a>
+      </li>
+    </ul>
+    </div>
+  </nav>
+  

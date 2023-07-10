@@ -1,0 +1,30 @@
+
+
+<div *ngIf="article">
+    <div>
+    <h2>{{article.name_article}}</h2>
+</div>
+<div class="divformin">serial number:
+    <input [(ngModel)]="article.sn_article" placeholder="nom" type="text" class="css-input"/>
+</div>
+<div class="divformin">Nom:
+    <input [(ngModel)]="article.name_article" placeholder="nom" type="text" class="css-input"/>
+</div>
+<div class="divformin">Description: <br/>
+    <textarea [(ngModel)]="article.description_article" type="text" class="css-input-area" ></textarea>
+   
+</div>
+<div class="divformin">prix:
+    <input [(ngModel)]="article.price_article" placeholder="prix" type="text" class="css-input"/>
+</div>
+<div class="divformin">type:
+    <input [(ngModel)]="article.type_article" placeholder="type" type="text" class="css-input"/>
+</div>
+
+<div class="divformin">PO:
+    <input [(ngModel)]="article.po_purchase" placeholder="PO" class="css-input"/>
+</div>
+<button class="myButton" (click)="updateArticle(article)" *ngIf="!switch">edit</button>
+<button class="myButton" (click)="deleteArticle(article)" *ngIf="!switch">delete</button>
+<button class="myButton" (click)="createArticle(article)" *ngIf="switch">add</button>
+</div>

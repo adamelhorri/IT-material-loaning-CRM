@@ -1,0 +1,69 @@
+<div  *ngIf="attribution">
+<div *ngIf="!attribution.id_attribution" class="divform">
+    
+   
+     <div class="divformin">
+      
+     </div >
+     
+     <div *ngIf="attribution.sn_article">serial number: <br/>
+        <input [(ngModel)]="attribution.sn_article" placeholder="disponibilite" type="number" class="css-input" (ngModelChange)="true" />
+        <button  [disabled]="!attribution.sn_article ?true:false" (click)="clrSN(attribution)" class="myButton">clear</button>
+        <div class="div_shower" *ngIf="attribution.sn_article">
+            <div *ngFor="let article of articles">
+                <div *ngIf="article.sn_article==attribution.sn_article">
+                   <div>{{article.name_article}}</div>
+                   <div>{{article.price_article}}euro</div>
+
+                </div>
+            </div>
+        </div>
+     </div >
+     <div *ngIf="!attribution.sn_article">
+        <app-article-search [(ngModel)]="nameArticle" [name]="nameArticle"  [articles]="articles" (articleSelected)="onArticleSelected($event)"></app-article-search>
+     
+      </div>
+     <div>
+      
+     </div>
+         <div *ngIf="attribution.id_user" class="divformin">ID user: <br/>
+        <input [(ngModel)]="attribution.id_user" placeholder="disponibilite" type="number" class="css-input" />
+        <button [disabled]="!attribution.id_user ?true:false" (click)="clrID(attribution)" class="myButton">clear</button>
+        <div class="div_shower" *ngIf="attribution.id_user">
+            <div *ngFor="let user of users">
+                <div *ngIf="user.id_user==attribution.id_user">
+                   <div>{{user.name_user}}</div>
+                   <div>{{user.fname_user}}</div>
+                   <div>{{user.departement_user}}</div>
+
+                </div>
+            </div>
+        </div>
+     </div>
+     <div *ngIf="!attribution.id_user" style="padding: 0;">
+        <app-user-search [(ngModel)]="nameUser" [name]="nameUser"  [users]="users" (userSelected)="onUserSelected($event)"></app-user-search>
+        <!-- Rest of your form goes here -->
+      </div>
+    <p style="text-align: center;color: rgb(155, 88, 0);">status</p>
+    <div style="max-width: 50%; text-align: center;margin-left: 30%;">
+      <label class="control control-radio">
+        <div>not returned</div> 
+              <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="not returned" checked="checked" />
+          <div class="control_indicator"></div>
+      </label>
+      
+      <label class="control control-radio">
+        <div>returned</div> 
+             <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="returned" />
+         <div class="control_indicator"></div>
+     </label>
+      
+   </div>
+   <div class="divformin">comment:<br/>
+    <textarea [(ngModel)]="attribution.comment_attribution" placeholder="disponibilite" class="css-input bigger-textarea"></textarea>      </div>
+  
+     <button class="myButton" [disabled]="isArticleAttributed(attribution.sn_article)" (click)="createAttribution(attribution)" *ngIf="!attribution.id_attribution">add</button>
+     <div *ngIf="isArticleAttributed(attribution.sn_article)"> Article {{attribution.sn_article}} is already attributed</div>
+  </div></div>
+  
+ 

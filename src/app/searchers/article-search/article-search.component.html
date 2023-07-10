@@ -1,0 +1,20 @@
+<div class="divformin">
+  <p style="font-weight: bold;">Equipement:</p><br/>
+  search by SN:<br/>
+  <input type="number" class="css-input" [(ngModel)]="articleSn" (selectItem)="selectArticleSn($event.item)" [resultFormatter]="formatArticleResult"  [ngbTypeahead]="searchSn" placeholder="insert serial number" />
+  <ul *ngIf="suggestedArticles.length > 0">
+    <li *ngFor="let article of suggestedArticles" (click)="selectArticle(article)" >
+      {{ article.sn_article }}
+    </li>
+  </ul>
+
+</div>
+<div class="divformin">search by name:<br/>
+    <input type="text" class="css-input" [(ngModel)]="articleName" (selectItem)="selectArticle($event.item)" [resultFormatter]="formatArticleResult"  [ngbTypeahead]="search" placeholder="insert article name" />
+    <ul *ngIf="suggestedArticles.length > 0">
+      <li *ngFor="let article of suggestedArticles" (click)="selectArticle(article)" >
+        {{ article.name_article }}
+      </li>
+    </ul>
+
+  </div>

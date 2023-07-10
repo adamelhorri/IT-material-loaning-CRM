@@ -1,0 +1,90 @@
+<div *ngIf="attribution">
+    <div *ngIf="!attribution.id_attribution" class="divfor">
+        
+       
+         <div class="divformin">
+          
+         </div >
+         
+         <div>
+            <div *ngIf="!attribution.po_purchase" style="padding-bottom: 0;">
+                <app-purchase-search [(ngModel)]="namePurchase"   [purchases]="purchases" (purchaseSelected)="onPurchaseSelected($event)"></app-purchase-search>
+                <button *ngIf="attribution.po_purchase" disabled="true" (click)="clrPO(attribution)" class="myButton">clear</button>
+                
+              </div>
+             <div *ngIf="attribution.po_purchase"> 
+                Purchase Order:<br/>
+            <input [(ngModel)]="attribution.po_purchase" placeholder="disponibilite" type="number" class="css-input" />
+           <button *ngIf="attribution.po_purchase" (click)="clrPO(attribution)" class="myButton">clear</button>
+        </div> 
+            <div class="div_shower" *ngIf="attribution.po_purchase">
+                <div *ngFor="let purchase of purchases">
+                    <div *ngIf="purchase.po_purchase==attribution.po_purchase">
+                       <div>
+                           <div >
+                               <p style="font-weight: bold;">PO: {{attribution.po_purchase}}</p>
+                           </div>
+                           <table><tr *ngFor="let article of articles">
+                        <td *ngIf="article.po_purchase==attribution.po_purchase"  class="tdintern2"  >{{article.name_article}} -> SN: {{article.sn_article}}</td>
+                        
+                     </tr></table></div>
+                      
+    
+                    </div>
+                </div>
+            </div>
+         </div >
+         
+         <div>
+          
+         </div>
+             <div *ngIf="attribution.id_user" class="divformin">ID user:<br/>
+            <input [(ngModel)]="attribution.id_user" placeholder="disponibilite" type="number" class="css-input" />
+            <button [disabled]="idUser(attribution.id_user)"  (click)="clrID(attribution)" class="myButton">clear</button>
+
+            <div class="div_shower" *ngIf="attribution.id_user">
+                <div *ngFor="let user of users">
+                    <div *ngIf="user.id_user==attribution.id_user">
+                       <div>User :{{user.name_user}} {{user.fname_user}}</div>
+                       <div>{{user.title_user}} in {{user.departement_user}} departement located in {{user.location_user}}</div>
+    
+                    </div>
+                </div>
+            </div>
+         </div>
+         <div *ngIf="!attribution.id_user">
+            <app-user-search [(ngModel)]="nameUser" [name]="nameUser"  [users]="users" (userSelected)="onUserSelected($event)"></app-user-search>
+          
+          </div>
+         
+         <p style="text-align: center;color: rgb(155, 88, 0);">status</p>
+         <div style="max-width: 50%; text-align: center;margin-left: 30%;">
+           <form>
+            <label class="control control-radio">
+               <div>not returned</div>
+                    <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="not returned" checked="checked" />
+                <div class="control_indicator"></div>
+            </label>
+            
+            <label class="control control-radio">
+             <div> returned</div> 
+                   <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="returned" />
+               <div class="control_indicator"></div>
+           </label>
+            </form>
+         </div>
+         <div class="divformin">comment:
+            <textarea [(ngModel)]="attribution.comment_attribution" placeholder="disponibilite" class="css-input bigger-textarea"></textarea>            </div>
+           
+       
+        
+        
+       
+         
+         
+         
+         <button class="myButton" (click)="updateAttribution(attribution)" *ngIf="attribution.id_attribution">edit</button>
+         <button class="myButton" (click)="deleteAttribution(attribution)" *ngIf="attribution.id_attribution">delete[temporary]</button>
+         <button class="myButton" [disabled]="isPoAttributed(attribution.po_purchase)" (click)="createAttribution(attribution)" *ngIf="!attribution.id_attribution">add</button>
+      </div></div>
+    

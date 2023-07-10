@@ -1,0 +1,30 @@
+
+.checkhide {
+   
+    width: 16px;
+    height: 16px;
+    border: 2px solid orange;
+    border-radius: 4px;
+    background-color: white;
+    outline: none;
+   
+  }
+  
+  .checkhide:checked {
+    background-color: orange;
+  }
+  .filter-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  label {
+    margin-right: 10px;
+  }
+  
+  select {
+    padding: 5px;
+    font-size: 14px;
+    border: 3px solid orange;
+    border-radius: 4px;
+  }

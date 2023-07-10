@@ -1,0 +1,50 @@
+<div *ngIf="attribution" class="divform">
+   <div *ngIf="attribution.sn_article" >
+    <div class="divformin">
+     
+    </div >
+    <div style="border: 1cm; color: black;">
+    <div class="divformin">
+        <button *ngIf="hardChange" class="btn" style="font-size: 17px; width: 170px;" (click)="hardChangeEnabler()">enable hard change</button>
+        <button *ngIf="!hardChange" class="btn" style="font-size: 17px; width: 170px;" (click)="hardChange=true">disable hard change</button>
+    </div>
+    <div>
+        ID article: 
+        <input [disabled]="hardChange" [(ngModel)]="attribution.sn_article" placeholder="disponibilite" type="number" class="css-input" min="1" name="sn_article" #sn_article="ngModel" (input)="handleSnArticleInput()" required />
+        <div *ngIf="attribution.sn_article==0 || attribution.sn_article==null">aaa</div>
+     
+    </div>
+    
+    
+        <div class="divformin">ID user:
+            <input [disabled]="hardChange" [(ngModel)]="attribution.id_user" placeholder="disponibilite" type="number" class="css-input" min="1" name="id_user" #sn_article="ngModel" (input)="handleIdUserInput()" required />    </div>
+    </div> <p style="text-align: center;color: rgb(155, 88, 0);">status</p>
+         <div style="max-width: 50%; text-align: center;margin-left: 30%;">
+            <label class="control control-radio">
+              <div>not returned</div> 
+                    <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="not returned" checked="checked" />
+                <div class="control_indicator"></div>
+            </label>
+          
+        
+            
+            <label class="control control-radio">
+              <div>returned</div> 
+                   <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="returned" />
+               <div class="control_indicator"></div>
+           </label>
+            
+         </div>
+   <div class="divformin">comment:<br/>
+    <textarea [(ngModel)]="attribution.comment_attribution" placeholder="disponibilite" class="css-input bigger-textarea"></textarea>   
+   </div>
+     
+   
+
+    
+    
+    
+    <button class="myButton" (click)="updateAttribution(attribution)" *ngIf="attribution.id_attribution">edit</button>
+    <button class="myButton" (click)="deleteAttribution(attribution)" *ngIf="attribution.id_attribution">delete[temporary]</button>
+   
+ </div></div>

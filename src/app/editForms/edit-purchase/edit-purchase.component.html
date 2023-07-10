@@ -1,0 +1,18 @@
+<div *ngIf="purchase">
+    <div class="divformin">
+       <h2>Purchase Order : {{purchase.po_purchase}}</h2>
+    </div>
+    <div class="divformin">po:
+      <input [(ngModel)]="purchase.po_purchase" placeholder="prenom" type="text" class="css-input"/>
+   </div>
+    <div class="divformin">status:
+       <input [(ngModel)]="purchase.status_purchase" placeholder="prenom" type="text" class="css-input"/>
+    </div>
+    
+    
+    
+  
+    <button (click)="updatePurchase(purchase)" class="myButton" *ngIf="purchase.po_purchase">Update</button>
+    <button (click)="deletePurchase(purchase)" class="myButton" *ngIf="purchase.po_purchase">Delete</button>
+    <button (click)="createPurchase(purchase)" class="myButton" *ngIf="!purchase.po_purchase">Add</button>
+ </div>

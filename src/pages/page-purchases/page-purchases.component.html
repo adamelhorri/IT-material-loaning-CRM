@@ -1,0 +1,76 @@
+<div style="margin: 1cm; background-color: rgb(240, 240, 240);">
+<div class="donnees">
+    <div class="barrerech">
+      <input class="css-input" type="text" [(ngModel)]="searchText" placeholder="Search...">
+    </div>
+ </div>
+ <button class="myButton" (click)="initNewPurchase();switchAP=true">creer purchase</button>
+ <button class="myButton" (click)="initNewArticle();switchToA=true;switchAP=false">creer article</button>
+ <table class="tableaucomp">
+    <td width="70%" border:0 class="tdtabcomp">
+       <table class="tableaudescriptif" >
+          <thead style="background-color:darkorange;">
+             <th>PO</th>
+             <th>Serial Number</th>
+             <th>Article</th>
+             <th>Price</th>
+             
+             <th>status</th>
+             <th>date</th>
+             <th>edit</th>
+             
+            
+           
+          </thead>
+          <tbody>
+             <tr *ngFor="let purchase of purchases |filterPurchase:searchText :1:purchases.length | paginate
+             : {
+                 itemsPerPage: tableSize,
+                 currentPage: page,
+                 totalItems: count
+               };
+         let i = index">
+                <td class="tdtabdes" >{{purchase.po_purchase}}</td>
+                <td  class="tdtabdesno"><table><tr *ngFor="let article of articles" >
+                   <td *ngIf="article.po_purchase==purchase.po_purchase" class="tdintern1" [ngClass]="{'returned':isAvailable(article)}" >{{article.sn_article}}</td>
+                </tr></table></td>
+               
+               <td  class="tdtabdesno" style="border-left:0;"><table><tr *ngFor="let article of articles"  >
+                  <td *ngIf="article.po_purchase==purchase.po_purchase" class="tdintern1" [ngClass]="{'returned':isAvailable(article)}" >
+                     <button (click)="editArticle(article);switchToA=false;switchAP=false" style="border: none;background: none; color: blue;" >{{article.name_article}}</button>
+                  </td> 
+                     
+                  
+               </tr></table></td>
+               <td  class="tdtabdesno"><table><tr *ngFor="let article of articles" >
+                  <td *ngIf="article.po_purchase==purchase.po_purchase" class="tdintern1" [ngClass]="{'returned':isAvailable(article)}" >{{article.price_article}} euro</td>
+               </tr></table></td>
+
+       
+                
+                <td class="tdtabdes" >{{purchase.status_purchase}}</td>
+                <td class="tdtabdes">{{clearDate(purchase.date_delivery_purchase)}}</td>
+              
+                <td class="tdtabdes">
+                   <!--a routerLink="/disponibilites/{{purchase.po_purchase}},"--><button class="myButton" (click)="editPurchase(purchase);switchAP=true">edit</button><!--/a-->
+                </td>
+             </tr>
+          </tbody>
+       </table>
+       <div class="d-flex justify-content-center">
+         <pagination-controls
+           previousLabel="Prev"
+           nextLabel="Next"
+           (pageChange)="onTableDataChange($event)"
+         >
+         </pagination-controls>
+       </div>
+    </td>
+    <td></td>
+    <td width="29%" style="background-color: rgb(208, 208, 208); border-radius: 2cm;">
+      <p style="text-align: center;font-weight: bold;">WorkSpace</p>
+      <app-edit-purchase *ngIf="switchAP" [purchase]="PurchaseToEdit"   (purchasesUpdated)="updatePurchaseList($event)"></app-edit-purchase>
+      <app-edit-article *ngIf="!switchAP" [article]="ArticleToEdit" [switch]="switchToA" (articlesUpdated)="updateArticleList($event)"></app-edit-article>
+
+   </td>
+ </table></div>

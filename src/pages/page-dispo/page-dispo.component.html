@@ -1,0 +1,51 @@
+<div style="margin: 1cm; background-color: rgb(240, 240, 240);">
+<div class="donnees">
+    <div class="barrerech">
+      <input type="text" [(ngModel)]="searchText" placeholder="Search...">
+    </div>
+    <button class="myButton" (click)="initNewArticle();switch=true">creer</button>
+    <table class="tableaucomp">
+       <td width="70%" border:0 class="tdtabcomp">
+          <table class="tableaudescriptif" >
+             <thead style="background-color:darkorange;">
+                <th>ID</th>
+                <th>nom</th>
+                <th>description</th>
+                <th>prix</th>
+                <th>etat</th>
+                <th>disponibilite</th>
+             </thead>
+             <tbody>
+                <tr *ngFor="let article of articles |filterArticle :searchText :1:articles.length | paginate
+                : {
+                    itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems: count
+                  };
+            let i = index" style="background-color: rgb(247, 232, 212);">
+                   <td class="tdtabdes">{{article.sn_article}}</td>
+                   <td class="tdtabdes" >{{article.name_article}}</td>
+                   <td class="tdtabdes">{{article.description_article}}</td>
+                   <td class="tdtabdes">{{article.price_article}}</td>
+                   
+                   <td class="tdtabdes">{{article.po_purchase}}</td>
+                   <td class="tdtabdes">
+                      <!--a routerLink="/disponibilites/{{article.sn_article}},"--><button (click)="editArticle(article);switch=false" class="myButton">edit</button><!--/a-->
+                   </td>
+                </tr>
+             </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination-controls
+              previousLabel="Prev"
+              nextLabel="Next"
+              (pageChange)="onTableDataChange($event)"
+            >
+            </pagination-controls>
+          </div>
+       </td>
+       <td width="30%" style="background-color: rgb(208, 208, 208);border: 1px rgb(255, 174, 0) solid;">
+          <app-edit-article [article]="ArticleToEdit" [switch]="switch" (articlesUpdated)="updateArticleList($event)"></app-edit-article>
+       </td>
+    </table>
+ </div></div>

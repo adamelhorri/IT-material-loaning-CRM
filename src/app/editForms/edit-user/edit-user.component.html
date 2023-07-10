@@ -1,0 +1,32 @@
+<div *ngIf="user">
+    <div class="divformin">
+       <h2>{{user.name_user}} {{user.fname_user}}</h2>
+    </div>
+    <div class="divformin">ID:
+      <input [(ngModel)]="user.id_user" placeholder="nom" type="text" class="css-input"/>
+   </div >
+    <div class="divformin">Nom:
+       <input [(ngModel)]="user.name_user" placeholder="nom" type="text" class="css-input"/>
+    </div>
+    <div class="divformin">Prenom:
+       <input [(ngModel)]="user.fname_user" placeholder="prenom" type="text" class="css-input"/>
+    </div>
+    <div>title:
+      <input [(ngModel)]="user.title_user" placeholder="title" type="text" class="css-input"/>
+   </div >
+    <div class="divformin">email:
+       <input [(ngModel)]="user.email_user" placeholder="emploi" type="text" class="css-input"/>
+    </div>
+    <div class="divformin">location:
+      <input [(ngModel)]="user.location_user" placeholder="location" type="text" class="css-input"/>
+   </div>
+  
+    
+    
+    <div class="divformin">bloc:
+       <input [(ngModel)]="user.departement_user" placeholder="bloc" type="text" class="css-input"/>
+    </div>
+    <button class="myButton" (click)="updateUser(user);" *ngIf="!switch">Update</button>
+    <button class="myButton" (click)="deleteUser(user);" *ngIf="!switch">Delete</button>
+    <button class="myButton" (click)="createUser(user);" *ngIf="switch">Add</button>
+ </div>

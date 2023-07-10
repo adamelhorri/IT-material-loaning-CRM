@@ -1,0 +1,53 @@
+<div class="donnees">
+    <div class="barrerech">
+      <input class="css-input" type="text" [(ngModel)]="searchText" placeholder="Search...">
+    </div>
+ </div>
+ <button class="myButton" (click)="initNewUser();switch=true">creer user</button>
+ <table class="tableaucomp">
+    <td width="70%" border:0>
+       <table class="tableaudescriptif" >
+          <thead style="background-color:darkorange;">
+             <th>ID</th>
+             <th>Name</th>
+             <th>First Name</th>
+             <th>Title</th>
+            
+             <th>Departement</th>
+             <th>Location</th>
+             <th>Edit</th>
+          </thead>
+          <tbody>
+             <tr *ngFor="let user of users |filterUser: searchText :1: users.length | paginate
+             : {
+                 itemsPerPage: tableSize,
+                 currentPage: page,
+                 totalItems: count
+               };
+         let i = index">
+                <td class="tdtabdes">{{user.id_user}}</td>
+                <td class="tdtabdes" >{{user.name_user}}</td>
+                <td class="tdtabdes">{{user.fname_user}}</td>
+                
+                <td class="tdtabdes">{{user.email_user}}</td>
+               
+                <td class="tdtabdes">{{user.departement_user}}</td>
+                <td class="tdtabdes">{{user.location_user}}</td>
+                <td class="tdtabdes">
+                   <!--a routerLink="/disponibilites/{{user.iduser}},"--><button class="myButton" (click)="editUser(user);switch=false">edit</button><!--/a-->
+                </td>
+             </tr>
+          </tbody>
+       </table>
+       <div class="d-flex justify-content-center">
+         <pagination-controls
+           previousLabel="Prev"
+           nextLabel="Next"
+           (pageChange)="onTableDataChange($event)"
+         >
+         </pagination-controls>
+       </div>
+    </td>
+    <td width="29%" style="background-color: rgb(208, 208, 208); border-radius: 2cm;">
+      <p style="text-align: center;font-weight: bold;">WorkSpace</p><app-edit-user [user]="UserToEdit" [switch]="switch" (usersUpdated)="updateUserList($event)"></app-edit-user></td>
+ </table>

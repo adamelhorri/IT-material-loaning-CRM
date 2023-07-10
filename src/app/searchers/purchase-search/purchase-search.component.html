@@ -1,0 +1,11 @@
+<div class="divformin">
+  <p style="font-weight: bold;">Purchase:</p>
+  search by PO:<br/>
+    <input type="number" class="css-input" [(ngModel)]="purchasePO" (selectItem)="selectPurchase($event.item)" [resultFormatter]="formatPurchaseResult"  [ngbTypeahead]="search" placeholder="inser purchase order" />
+    <ul *ngIf="suggestedPurchases.length > 0">
+      <li *ngFor="let purchase of suggestedPurchases" (click)="selectPurchase(purchase)" >
+       
+      </li>
+    </ul>
+</div>
+ 

@@ -1,0 +1,249 @@
+<div  class="bodyofatt" style="top: 0; padding-bottom: 2cm;" >
+
+<div style="margin-left: 1cm;margin-right: 1cm; background-color: rgb(240, 240, 240);">
+   
+   <div style="width: 100%;text-align: left;color:rgb(255, 145, 0);font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-stretch: expanded;padding: 0">
+      <div style="padding: 0;width: 65%;text-align: center;"> 
+              <button class="btn" style="width: 50%;border-bottom-left-radius:0;border-bottom-right-radius: 0;" [ngClass]="{'btnS':filterAs===false && filterAc===false}" (click)="filterAs=false;filterAc=false;selectedFilterType='all';onFilterChange()"><h1 style="padding: 0;font-size:29px;" >ITEA (IT Equipement Attributer)</h1></button>
+</div>
+      
+<div style="padding-top: 3px;">
+      <table style="width: 70%;">
+         
+         <tr>
+         <td><button class="btn"  style=" border-bottom-left-radius:0;border-bottom-right-radius: 0;" [ngClass]="{'btnS':filterAs===true && filterAc===false}"
+             (click)="filterAs=true;filterAc=false;selectedFilterType='asset';onFilterChange()"><h1 style="padding: 0;font-size:29px;" >ITAsA (IT Asset Attributer)</h1></button></td>
+      
+         <td><button class="btn" style=" border-bottom-left-radius:0;border-bottom-right-radius: 0;" [ngClass]="{'btnS':filterAs===false && filterAc===true}"
+            (click)="filterAc=true;filterAs=false;selectedFilterType='accessory';onFilterChange()"><h1 style="padding: 0;font-size:29px;" >ITAcA (IT Accessory Attributer)</h1></button></td>
+      </tr>      
+    </table></div>
+</div>
+   
+   
+   <table class="tableaucomp bodyofatt">
+      <td *ngIf="attributionTable" width="70%" border:0 class="tdtabcomp" >
+         <div *ngIf="!controlForm" class="form-control" style="text-align: left;">
+            <button  class="icoButton" style=" background: url('assets/show.png');background-size: 100%;background-position:bottom; background-repeat: no-repeat;" (click)="controlForm=true;tableSize=11" ></button>
+            <input class="css-input" type="text" [(ngModel)]="searchText" placeholder="Search...">
+         </div>
+         <div *ngIf="controlForm" class="form-control" style="text-align: left;">
+            <div>
+               <button  class="icoButton" style=" background: url('assets/hide.png');background-size: 100%;background-position:bottom; background-repeat: no-repeat;" (click)="controlForm=false;tableSize=17" ></button>
+
+                           </div>
+            <div class="donnees" style="padding: 1%;">
+              
+               <input class="css-input" type="text" [(ngModel)]="searchText" placeholder="Search...">
+               
+            </div>
+           
+            <td>
+            <button  class="btn" style="font-size: 17px; width: 140px;" (click)="initNewAttribution();initEBPO()"> Attribute by PO </button>
+            </td><td>
+            <button class="btn" style="font-size: 17px;width: 140px;" (click)="initNewAttribution();initEBSN()">Attribute by SN</button></td>
+            <table>
+           <td style="text-align: left;width: 80%"> <p>show:</p>
+            
+            <input class="checkhide" type="checkbox" [(ngModel)]="idattributionVisible">attribution id
+            
+            <input class="checkhide" type="checkbox" [(ngModel)]="snVisible">serial number
+            <input class="checkhide" type="checkbox" [(ngModel)]="descriptionVisible">description
+            <input class="checkhide" type="checkbox" [(ngModel)]="typeVisible">type
+            
+            
+            <input class="checkhide" type="checkbox" [(ngModel)]="useridVisible">employee id
+            <input class="checkhide" type="checkbox" [(ngModel)]="departementVisible">departement
+            <input class="checkhide" type="checkbox" [(ngModel)]="statusVisible">status
+            <input class="checkhide" type="checkbox" [(ngModel)]="commentVisible">Comment
+            <input class="checkhide" type="checkbox" [(ngModel)]="dateVisible">date
+            <input class="checkhide" type="checkbox" [(ngModel)]="titleVisible">Emp title
+            <input class="checkhide" type="checkbox" [(ngModel)]="locationVisible">location
+            <div class="filter-container">
+
+               
+
+               <label for="fliter-by-type" style="padding-left: 1cm;">Filters</label>
+              <div class="box">
+               <select [(ngModel)]="selectedFilter"(change)="onFilterChange();resetPagination();updateArticles()" >
+                  <option value="">--- Select Filter ---</option>
+                  <option value="po" >Attribution by SN</option>
+                  <option value="sn">Attributions by PO</option>
+                  <option value="returned">Returned</option>
+                  <option value="notreturned">Not returned</option>
+                  
+                  <option value="all">All attributions</option>
+               </select></div> 
+              
+               <p style="padding: 1%;">View by User:</p>
+               <label class="switch">
+
+                  <input type="checkbox" [(ngModel)]="viewBase" >
+                  <span class="slider round"></span>
+                </label>
+               
+            </div>
+            </td>
+           
+            
+             
+            <td style="text-align: center ;vertical-align:bottom ; padding-bottom: 40px;;width:4%"> 
+               <div>
+               <div style="padding-bottom: 10px;" *ngIf="bigTable"> reduce</div>
+               <div style="padding-bottom: 10px;" *ngIf="!bigTable"> expand</div>
+               <div  >
+                <button *ngIf="bigTable" class="icoButton1" style=" background: url('assets/collapse.png');background-size: 100%;background-position:bottom; background-repeat: no-repeat;" (click)="useridVisible=false;snVisible=false;idattributionVisible=false;statusVisible=false;commentVisible=false;departementVisible=false;titleVisible=false;locationVisible=false;dateVisible=false;bigTable=false"></button>
+   
+             <button *ngIf="!bigTable" class="icoButton1" style=" background: url('assets/expand.png');background-size: 100%;background-position:bottom; background-repeat: no-repeat;" (click)="useridVisible=true;snVisible=true;statusVisible=true;departementVisible=true;titleVisible=true;locationVisible=true;dateVisible=true;bigTable=true"></button>
+            </div></div></td>
+            </table>
+         </div>
+         <table  class="tableaudescriptif" style="font-family:Verdana, Geneva, Tahoma, sans-serif;">
+            <thead style="background-color:rgb(255, 157, 38);">
+               <th *ngIf="idattributionVisible">id_attribution</th>
+               <th *ngIf="useridVisible&&viewBase">Employee ID</th>
+               <th *ngIf="viewBase">Employee name</th>
+               <th *ngIf="titleVisible&&viewBase">Employee title</th>
+               <th *ngIf="departementVisible&&viewBase">Departement</th>
+               <th *ngIf="locationVisible&&viewBase">Employee location</th>
+               <th >Purchase order</th>
+               <th *ngIf="snVisible">Serial number</th>
+               <th>Article </th>
+              
+               <th *ngIf="typeVisible">Type</th>
+               <th *ngIf="descriptionVisible==true">Description</th>
+
+
+               <th *ngIf="useridVisible&&!viewBase">Employee ID</th>
+               <th *ngIf="!viewBase">Employee name</th>
+               <th *ngIf="titleVisible&&!viewBase">Employee title</th>
+               <th *ngIf="departementVisible&&!viewBase">Departement</th>
+               <th *ngIf="locationVisible&&!viewBase">Employee location</th>
+               <th *ngIf="commentVisible">Comment </th>
+               <th *ngIf="statusVisible">Statuts</th>
+               <th *ngIf="dateVisible">Date</th>
+               <th>actions</th>
+            </thead>
+            <tbody>
+               <tr *ngFor="let attribution of filteredAttributions | filter: searchText  : 1 : attributions.length | paginate
+               : {
+             itemsPerPage: tableSize,
+               currentPage: page,
+               totalItems: count
+               };
+               let i = index"
+               [ngClass]="{'sn_article-null-nr': attribution.sn_article == null && attribution.status_attribution == 'not returned' ,'po-purchase-null-nr': attribution.po_purchase == null && attribution.status_attribution == 'not returned',
+               'sn_article-null-r': attribution.sn_article == null && attribution.status_attribution == 'returned' ,'po-purchase-null-r': attribution.po_purchase == null && attribution.status_attribution == 'returned',
+               'sn_article-null-hr': attribution.sn_article == null && attribution.status_attribution == 'half returned' ,'po-purchase-null-hr': attribution.po_purchase == null && attribution.status_attribution == 'half returned',
+              
+                 }" >
+
+
+               <td *ngIf="idattributionVisible" class="tdtabdesnocol">{{attribution.id_attribution}}</td>
+
+               <td class="tdtabdesnocol" *ngIf="useridVisible&&viewBase">{{attribution.id_user}}</td>
+               <td class="tdtabdesnocol" *ngIf="viewBase">{{attribution.user?.name_user}} {{attribution.user?.fname_user}}</td>
+               <td class="tdtabdesnocol" *ngIf="titleVisible&&viewBase">{{attribution.user?.title_user}}</td>
+               <td class="tdtabdesnocol" *ngIf="departementVisible&&viewBase">{{attribution.user?.departement_user}}</td>
+               <td class="tdtabdesnocol" *ngIf="locationVisible&&viewBase">{{attribution.user?.location_user}}</td>
+               
+               <td *ngIf="attribution.po_purchase!=null" class="tdtabdesnocol">{{attribution.po_purchase}}</td>
+               <td *ngIf="attribution.po_purchase==null" class="tdtabdesnocol">{{attribution.article?.po_purchase}}</td>
+               <td *ngIf="attribution.sn_article!=null&&snVisible" class="tdtabdesnocol" >{{attribution.sn_article}}</td>
+               <td *ngIf="attribution.sn_article==null&&snVisible" class="tdtabdesnocol">
+                  <table>
+                     <tr *ngFor="let article of filteredArticles">
+                        <td *ngIf="article.po_purchase==attribution.po_purchase &&snVisible"  class="tdintern2" [ngClass]="{
+                           'returned':attribution.status_attribution=='half returned' && isIn(article.name_article+' '+article.sn_article,attribution.comment_attribution)}" class="tdintern1"
+                         >{{article.sn_article}}</td>
+                     </tr>
+                  </table>
+               </td>
+               <td *ngIf="attribution.sn_article!=null" class="tdtabdesnocol">{{attribution.article?.name_article}}</td>
+               <td *ngIf="attribution.sn_article==null" class="tdtabdesnocol">
+                  <table>
+                     <tr *ngFor="let article of filteredArticles" >
+                        <td *ngIf="article.po_purchase==attribution.po_purchase"  class="tdintern1" [ngClass]="{
+                           'returned':attribution.status_attribution=='half returned' && isIn(article.name_article+' '+article.sn_article,attribution.comment_attribution)}" class="tdintern1">{{article.name_article}}</td>
+                     </tr>
+                  </table>
+                 
+               </td>
+
+               <td *ngIf="attribution.sn_article!=null&&typeVisible" class="tdtabdesnocol" >{{attribution.article?.type_article}}</td>
+               <td *ngIf="attribution.sn_article==null&&typeVisible" class="tdtabdesnocol">
+                  <table>
+                     <tr *ngFor="let article of filteredArticles" >
+                        <td *ngIf="article.po_purchase==attribution.po_purchase"  [ngClass]="{
+                           'returned':attribution.status_attribution=='half returned' && isIn(article.name_article+' '+article.sn_article,attribution.comment_attribution)}" class="tdintern1"
+                            class="tdintern1" >{{article.type_article}}</td>
+
+                     </tr>
+                  </table></td>
+                  <td *ngIf="attribution.sn_article!=null&&descriptionVisible==true" class="tdtabdesnocol">{{attribution.article?.description_article}}</td>
+
+                  <td *ngIf="attribution.sn_article==null&&descriptionVisible==true" class="tdtabdesnocol">
+                     <table>
+                        <tr *ngFor="let article of filteredArticles" >
+                        <td *ngIf="article.po_purchase==attribution.po_purchase" [ngClass]="{
+                           'returned':attribution.status_attribution=='half returned' && isIn(article.name_article+' '+article.sn_article,attribution.comment_attribution)}" class="tdintern1" 
+                              class="tdintern1" >{{article.description_article}}</td>
+   
+                        </tr>
+                     </table></td>
+               <td class="tdtabdesnocol" *ngIf="useridVisible&&!viewBase">{{attribution.id_user}}</td>
+               <td class="tdtabdesnocol" *ngIf="!viewBase">{{attribution.user?.name_user}} {{attribution.user?.fname_user}}</td>
+               <td class="tdtabdesnocol" *ngIf="titleVisible&&!viewBase">{{attribution.user?.title_user}}</td>
+             
+
+               <td class="tdtabdesnocol" *ngIf="departementVisible&&!viewBase">{{attribution.user?.departement_user}}</td>
+               <td class="tdtabdesnocol" *ngIf="locationVisible&&!viewBase">{{attribution.user?.location_user}}</td>
+               <td class="tdtabdesnocol" style="width: 10%;" *ngIf="commentVisible" >{{attribution.comment_attribution}}</td>
+               <td class="tdtabdesnocol" *ngIf="statusVisible">{{attribution.status_attribution}}</td>
+               <td class="tdtabdesnocol" *ngIf="dateVisible">{{clearDate(attribution.date_attribution)}}</td>
+               <td class="tdtabdesnocol"  style="max-width: 100px;" >
+                 <table style="padding: 0;">
+                    <td style="padding-right: 0;">
+                <button  class="icoButton" style=" background: url('assets/edit.png');background-size: 100%;background-position:bottom; background-repeat: no-repeat;" (click)="editAttribution(attribution);initEdition()"></button>
+               </td>
+               <td style="padding-bottom: 3%; padding-left: 0;">
+                  <button  class="icoButton" style=" background: url('assets/pdf.png');background-size: 100%;background-position:bottom; background-repeat: no-repeat;"   (click)="generateReceiptPDF(attribution)"></button>
+
+               </td>
+                 </table>
+               </td>
+               </tr>
+            </tbody>
+         </table>
+         <div class="pagination-container" style="font-weight: bold;font-size: larger;">
+            <pagination-controls
+   previousLabel="Prev"
+   nextLabel="Next"
+   (pageChange)="onTableDataChange($event)"
+   class="pagination-controls"
+></pagination-controls>
+         </div>
+      </td>
+      
+     <td style="width: 1%;"></td>
+      <td  width="30%" border:0 class="tdtabcomp" style="background-color: rgb(209, 209, 209);border: 0 rgb(66, 66, 66) solid; position: sticky; border-radius: 2cm;">
+         <div >
+         <div style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: larger;font-weight: bold;">WorkSpace</div>
+         <div *ngIf="edition" >
+            <app-edit-attribution [attribution]="AttributionToEdit" (attributionsUpdated)="updateAttributionList($event)"></app-edit-attribution>
+         </div>
+         <div *ngIf="edition">
+            <app-edit-attribution-by-po [attribution]="AttributionToEdit" (attributionsUpdated)="updateAttributionList($event)"></app-edit-attribution-by-po>
+         </div>
+         <div *ngIf="edit_by_sn">
+            <app-create-attribution [attribution]="AttributionToEdit" (attributionsUpdated)="updateAttributionList($event)"></app-create-attribution>
+         </div>
+         <div *ngIf="edit_by_po">
+            <app-create-attribution-by-po [attribution]="AttributionToEdit" (attributionsUpdated)="updateAttributionList($event)"></app-create-attribution-by-po>
+         </div>
+         </div>
+          
+       <div><button *ngIf="edition || edit_by_sn || edit_by_po" class="btn" style="width: fit-content; margin: 0.6cm; font-size: 17px;" (click)="clearWorkSpace()">clear workspace</button></div>
+      </td>
+   </table>
+</div></div>

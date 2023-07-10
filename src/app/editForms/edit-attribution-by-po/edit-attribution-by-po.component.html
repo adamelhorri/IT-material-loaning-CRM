@@ -1,0 +1,65 @@
+<div *ngIf="attribution" class="divform" style="padding-bottom: 5%">
+    <div *ngIf="attribution.po_purchase">
+    
+      <div class="divformin">
+        <button *ngIf="hardChange" class="btn" style="font-size: 17px; width: 170px;" (click)="hardChange=false">enable hard change</button>
+        <button *ngIf="!hardChange" class="btn" style="font-size: 17px; width: 170px;" (click)="hardChange=true">disable hard change</button>
+    </div>
+    <div>PO:
+      <input [(ngModel)]="attribution.po_purchase" [disabled]="hardChange" placeholder="disponibilite" type="number" class="css-input" min="1" name="po_purchase" #sn_article="ngModel" (input)="handleSnArticleInput()" required />    </div >
+    <div>
+     
+    </div>
+        <div class="divformin">ID user:
+         <input [(ngModel)]="attribution.id_user" [disabled]="hardChange" placeholder="disponibilite" type="number" class="css-input" min="1" name="id_user" #sn_article="ngModel" (input)="handleIdUserInput()" required />    </div>
+      
+    <p style="text-align: center;color: rgb(155, 88, 0);">status</p>
+         <div style="max-width: 50%; text-align: center;margin-left: 30%;">
+            <label class="control control-radio">
+               <div>not returned</div>
+                    <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="not returned" checked="checked" />
+                <div class="control_indicator"></div>
+            </label>
+            <label class="control control-radio">
+               <div>half returned</div> 
+                    <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="half returned" (clicked)="setCommentVisible()" />
+                <div class="control_indicator"></div>
+                <div *ngIf="attribution.status_attribution=='half returned'">
+                   
+                  <div class="form-control" style="text-align: center; border-radius: 1cm;">
+                    <p>returned articles</p>
+                    <tr *ngFor="let article of articles" style="width:max-content ;text-align: center;zoom: 140%;">
+                      <td *ngIf="article.po_purchase == attribution.po_purchase">
+                        <button [disabled]="isIn(article.name_article+' '+article.sn_article,attribution.comment_attribution)" class="btn" style="padding: 0.2cm;"  (click)="actionMethod($event); clicked = true" (click)="addArticleToComment(article.name_article,article.sn_article);autoStatus(attribution)">{{ article.name_article }}</button>
+                      </td>
+                    </tr>
+                      </div>    
+                        
+
+               
+            </div>
+            </label>
+            
+            <label class="control control-radio">
+               <div>returned</div>
+                   <input type="radio" name="radio" [(ngModel)]="attribution.status_attribution" value="returned"/>
+               <div class="control_indicator"></div>
+           </label>
+          
+         </div>
+   <div class="divformin">comment:<br/>
+    <textarea [(ngModel)]="attribution.comment_attribution" placeholder="disponibilite" class="css-input bigger-textarea"></textarea>   </div>
+     
+   
+   
+  
+    
+    
+    
+    <button class="myButton" (click)="updateAttribution(attribution);autoStatus(attribution)" *ngIf="attribution.id_attribution">edit</button>
+    <button class="myButton" (click)="deleteAttribution(attribution)" *ngIf="attribution.id_attribution">delete[temporary]</button>
+    
+  
+   
+ </div>
+ 

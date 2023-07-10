@@ -1,0 +1,18 @@
+<div class="divformin" >
+  <p style="font-weight: bold;">User:</p>
+  <p>search by id</p>
+<input type="number" class="css-input" [(ngModel)]="userId" (selectItem)="selectUserId($event.item)" [resultFormatter]="formatUserResult"  [ngbTypeahead]="searchId" placeholder="insert id of user" />
+    <ul *ngIf="suggestedUsers.length > 0">
+      <li *ngFor="let user of suggestedUsers" (click)="selectUser(user)" >
+       {{user.id_user}}
+      </li>
+    </ul></div>
+    
+    <div class="divformin" style="padding-top: 0;"><p>search by name</p>
+    <input type="text" class="css-input" [(ngModel)]="userName" (selectItem)="selectUser($event.item)" [resultFormatter]="formatUserResult"  [ngbTypeahead]="search" placeholder="insert name of user" />
+    <ul *ngIf="suggestedUsers.length > 0">
+      <li *ngFor="let user of suggestedUsers" (click)="selectUser(user)" >
+        {{ user.name_user }}
+      </li>
+    </ul>
+</div>
